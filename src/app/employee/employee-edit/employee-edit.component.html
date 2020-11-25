@@ -1,0 +1,70 @@
+<div class="container" *ngIf="employee">
+
+    <h3>{{pageTitle}}</h3>
+
+    <form #form="ngForm" ngNativeValidate>
+
+        <label for="Name">First Name</label>
+        <input id="Name" name="Name" type="text" class="form-control" [(ngModel)]=employee.First_Name required><br>
+        <label for="lname">Last Name</label>
+        <input id="lname" name="lname" type="text" class="form-control" [(ngModel)]="employee.Last_Name" required><br>
+
+
+        <label for="Email">Email:</label><br>
+        <input type="email" id="Email" class="form-control" name="Email" [(ngModel)]=employee.Email required><br>
+
+        <label for="contact">Contact</label>
+        <input id="contact" name="contact" type="number" minlength="10" maxlength="10" class="form-control"
+            [(ngModel)]="employee.Contact" required><br>
+
+        <label for="address">Address</label>
+        <textarea id="address" rows="3" name="address" class="form-control" [(ngModel)]="employee.Address" required>
+        </textarea><br>
+
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" class="form-control" [(ngModel)]="employee.Username" required><br>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" class="form-control" [(ngModel)]="employee.Password"
+            required><br>
+
+        <label>Gender</label><br>
+        <input type="radio" id="male" name="gender" value="Male" [(ngModel)]="employee.Gender" required>
+        <label for="male">Male</label><br>
+
+        <input type="radio" id="female" name="gender" value="female" [(ngModel)]="employee.Gender" required>
+        <label for="female">Female</label>
+        <br>
+        <div class="form-group">
+            <label for="qualify">Qualifications:</label>
+            <select class="form-control" id="qualify" name="Qualification" [(ngModel)]="employee.Qualification"
+                required>
+                <option *ngFor="let q of default_qualification">
+                    {{q}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="selectNumber">Experience:</label>
+            <select id="selectNumber" class="form-control" name="Experience" [(ngModel)]="employee.Experience" required>
+                <option *ngFor="let e of default_experience">{{e}}</option>
+            </select>
+            <label>Coding Languages:</label>
+            <div *ngFor="let l of default_language">
+                <input type="checkbox" name="default_language" checked (change)="onChange(l, $event.target.checked)" />
+                {{ l }}
+            </div>
+            <div *ngFor="let n of language">
+                <input type="checkbox" name="language" (change)="onChange(n, $event.target.checked)" />
+                {{ n }}
+            </div>
+        </div>
+
+        <button style="margin:5px;" class="btn btn-outline-primary btn-sm" (click)="saveEmployee()" type="submit" [disabled]="!isValid()">
+            Save
+        </button>
+        
+        <button style="margin:5px;" class="btn btn-outline-primary btn-sm" [routerLink]="['/employees']">Back</button>
+    </form>
+</div>
